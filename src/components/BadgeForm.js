@@ -24,6 +24,7 @@ class BadgeForm extends React.Component{
                 <h1>New Attendant</h1>
 
                 <form onSubmit={this.handleSubmit}>
+                    
                     <div className="form-group">
                         <label htmlFor="">First Name</label>
                         <input 
