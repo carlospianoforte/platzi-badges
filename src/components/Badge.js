@@ -5,8 +5,6 @@ import confLogo from "../images/arbol.png"
 class Badge extends React.Component{
     render(){
 
-        //const firstName ="Carlos"
-        //const lastName = "Ortiz"
 
         return (
             <div className="Badge">
