@@ -8,7 +8,7 @@ import "./styles/Home.css"
 class Home extends React.Component{
     render(){
         return(
-            <>
+            
             <div className="home">
                                 
 
@@ -36,7 +36,7 @@ class Home extends React.Component{
         
     
             </div>
-            </>
+            
         )
     }
 }
