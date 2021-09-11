@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import api from "../api"
 import PageLoading from "../components/PageLoading"
 import PageError from "../components/PageError"
+import MiniLoader from "../components/MiniLoader"
 
 class Badges extends React.Component{
    
@@ -18,16 +19,22 @@ class Badges extends React.Component{
 
         componentDidMount(){
             this.fetchData()
+
+            this.intervalId = setInterval(this.fetchData, 5000)//polling para actualizar automaticamente el componente
+        }
+
+        componentWillUnmount(){
+            clearInterval(this.intervalId)//cancela el intervalo cuando salimos de la pagina
         }
 
         fetchData=async ()=>{
             this.setState({loading: true, error: null})
 
             try{
-                const data = await api.badges.list();
+                const data = await api.badges.list();//pide datos a la api y guarda datos
                 this.setState({loading: false, data: data})
             }catch(error){
-                this.setState({loading: false, error: error})
+                this.setState({loading: false, error: error})//loading en falso y guarda el error
 
             }
         }
@@ -37,7 +44,7 @@ class Badges extends React.Component{
 
     render(){
 
-        if(this.state.loading===true){
+        if(this.state.loading===true && !this.state.data){//solo hace loading si los datos son indefinidos
             return <PageLoading />
         }
 
@@ -68,6 +75,7 @@ class Badges extends React.Component{
                 <div className="Badges_list">
                     <div className="Badges_container">
                         <BadgesList badges={this.state.data} />
+                        {this.state.loading && <MiniLoader/>}
                        
                     </div>
                 </div>
