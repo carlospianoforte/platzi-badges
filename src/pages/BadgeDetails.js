@@ -1,45 +1,19 @@
 import React from "react"
-import "./styles/BadgeDetails.css"
-import confLogo from "../images/platziconf-logo.svg"
-import PageLoading from "../components/PageLoading"
-import PageError from "../components/PageError"
-import api from "../api"
-import Badge from "../components/Badge"
 import {Link} from "react-router-dom"
 
-class BadgeDetails extends React.Component{
-    state={
-        loading:true,
-        error:null,
-        data:undefined,
-    }
+import "./styles/BadgeDetails.css"
+import confLogo from "../images/platziconf-logo.svg"
+import Badge from "../components/Badge"
+import DeleteBadgeModal from "../components/DeleteBadgeModal"
+/* function BadgeDetails (props){
+    return(
 
-    componentDidMount(){
-        this.fetchData()
-    }
+    )
+} */
 
-    fetchData= async ()=>{
-        this.setState({loading:true,error:null})
-        try{
-            const data = await api.badges.read(
-                this.props.match.params.badgeId
-            )
-            this.setState({loading:false, data:data})
-        }catch(error){
-            this.setState({loading:false, error:null})
-        }
-    }
-
-    render(){
-        if(this.state.loading){
-            return <PageLoading/>
-        }
-        if(this.state.error){
-            return <PageError/>
-        }
-
-        const badge =this.state.data
-        return(
+const BadgeDetails=(props)=>{
+    const badge= props.badge
+    return(
         <div>
             <div className="BadgeDetails_hero">
                 <div className="container">
@@ -74,16 +48,24 @@ class BadgeDetails extends React.Component{
                         </div>
 
                         <div>
-                            <div><button className="btn btn-danger">Delete</button></div>
+                            <div><button onClick={props.onOpenModal}  
+                            className="btn btn-danger">Delete</button>
+                                <DeleteBadgeModal 
+                                    isOpen={props.modalIsOpen} 
+                                    onClose={props.onCloseModal}
+                                    onDeleteBadge={props.onDeleteBadge} 
+                                />
+                                
+                            
+                            </div>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-        )
-       
-    }
+    )
 }
+
 
 export default BadgeDetails
