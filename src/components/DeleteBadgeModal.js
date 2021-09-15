@@ -10,16 +10,17 @@ const DeleteBadgeModal =(props)=>(
          
 
             <div>
-                <button onClick={props.onDeleteBadge} className="btn btn-danger mr-4">
+                <button onClick={props.onDeleteBadge} className='btn btn-danger mr-4'>
                     Delete
                 </button>
-                <button onClick={props.onClose} className="btn btn-primary" >
+                <button onClick={props.onClose} className="btn btn-primary">
                     Cancel
                 </button>
             </div>
         </div>
      </Modal>
     )
+
 
 
 export default DeleteBadgeModal
